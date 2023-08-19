@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "Vocabularity.Language.Protos";
+
+service LanguageService {
+	rpc GetLanguagesAsync(Empty) return (Entities.Language)
+	rpc GetLanguageByIdAsync(id) return (Entities.Language)
+	rpc GetLanguageByCodeAsync(id) return (Entities.Language)
+}
+
+message Empty {
+
+}
+
+message Languages {
+	repeated Language items = 1;
+}
