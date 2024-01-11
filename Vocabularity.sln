@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.API", "Vocabularity.API\Vocabularity.API.csproj", "{CC80E114-1C39-419C-8895-D154875FFF3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.IdentityServer", "Vocabularity.IdentityServer\Vocabularity.IdentityServer.csproj", "{545B3206-EA60-4233-9BDC-C8A436C22262}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC80E114-1C39-419C-8895-D154875FFF3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC80E114-1C39-419C-8895-D154875FFF3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC80E114-1C39-419C-8895-D154875FFF3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC80E114-1C39-419C-8895-D154875FFF3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{545B3206-EA60-4233-9BDC-C8A436C22262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{545B3206-EA60-4233-9BDC-C8A436C22262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{545B3206-EA60-4233-9BDC-C8A436C22262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{545B3206-EA60-4233-9BDC-C8A436C22262}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F30367D2-792F-43D4-A77F-BF0C0461F363}
+	EndGlobalSection
+EndGlobal
