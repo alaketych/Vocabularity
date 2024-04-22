@@ -3,9 +3,33 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.API", "Vocabularity.API\Vocabularity.API.csproj", "{CC80E114-1C39-419C-8895-D154875FFF3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vocabularity.API", "Vocabularity.API\Vocabularity.API.csproj", "{CC80E114-1C39-419C-8895-D154875FFF3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.IdentityServer", "Vocabularity.IdentityServer\Vocabularity.IdentityServer.csproj", "{545B3206-EA60-4233-9BDC-C8A436C22262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vocabularity.IdentityServer", "Vocabularity.IdentityServer\Vocabularity.IdentityServer.csproj", "{545B3206-EA60-4233-9BDC-C8A436C22262}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{35E5DD2A-82A9-45A6-A2C2-E78E06A4BFA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vocabularity.Language.DAL", "Vocabularity.Language.DAL\Vocabularity.Language.DAL.csproj", "{105D45CD-F9E9-48D0-81C3-5E12FBFF8417}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.Language", "Vocabularity.Language\Vocabularity.Language.csproj", "{2D9FA36E-3F1C-4493-BF26-8D5997532209}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.Core.MessageBus", "Vocabularity.Core.MessageBus\Vocabularity.Core.MessageBus.csproj", "{E597996D-8DAB-4014-B944-536B355703FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.Core.MessageBus.DataProvider", "Vocabularity.Core.MessageBus.DataProvider\Vocabularity.Core.MessageBus.DataProvider.csproj", "{0EF50A6B-1A22-47AD-A8F6-7CE83308C047}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.Core.MessageBus.Interfaces", "Vocabularity.Core.MessageBus.Interfaces\Vocabularity.Core.MessageBus.Interfaces.csproj", "{D3803D15-2C1C-41E6-B3A1-7DB821DD1766}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.Dictionary", "Vocabularity.Dictionary\Vocabularity.Dictionary.csproj", "{6B2DDDC8-CED3-43C8-A71E-BC0FD2B97130}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.Dictionary.DAL", "Vocabularity.Dictionary.DAL\Vocabularity.Dictionary.DAL.csproj", "{EE1EBDCB-CC49-4F9F-9AAD-C637C8F5DA59}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBus", "MessageBus", "{5E0320F3-6B26-4EB6-B270-4EC0E0E24AF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.MessageBus.SenderConsole", "Vocabularity.MessageBus.SenderConsole\Vocabularity.MessageBus.SenderConsole.csproj", "{60CA901B-104F-4A61-8B61-E6B85A23362E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.MessageBus.RetrieverConsole", "Vocabularity.MessageBus.RetrieverConsole\Vocabularity.MessageBus.RetrieverConsole.csproj", "{87A93A4E-A780-4FEB-AAF3-B0572D8EA662}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.MessageBus.RabbitMqDataProvider", "Vocabularity.MessageBus.RabbitMqDataProvider\Vocabularity.MessageBus.RabbitMqDataProvider.csproj", "{2B1949F8-F551-411B-9448-FC3288CDDD35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +45,58 @@ Global
 		{545B3206-EA60-4233-9BDC-C8A436C22262}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{545B3206-EA60-4233-9BDC-C8A436C22262}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{545B3206-EA60-4233-9BDC-C8A436C22262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{105D45CD-F9E9-48D0-81C3-5E12FBFF8417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{105D45CD-F9E9-48D0-81C3-5E12FBFF8417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{105D45CD-F9E9-48D0-81C3-5E12FBFF8417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{105D45CD-F9E9-48D0-81C3-5E12FBFF8417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D9FA36E-3F1C-4493-BF26-8D5997532209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D9FA36E-3F1C-4493-BF26-8D5997532209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D9FA36E-3F1C-4493-BF26-8D5997532209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D9FA36E-3F1C-4493-BF26-8D5997532209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E597996D-8DAB-4014-B944-536B355703FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E597996D-8DAB-4014-B944-536B355703FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E597996D-8DAB-4014-B944-536B355703FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E597996D-8DAB-4014-B944-536B355703FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EF50A6B-1A22-47AD-A8F6-7CE83308C047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EF50A6B-1A22-47AD-A8F6-7CE83308C047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EF50A6B-1A22-47AD-A8F6-7CE83308C047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EF50A6B-1A22-47AD-A8F6-7CE83308C047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3803D15-2C1C-41E6-B3A1-7DB821DD1766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3803D15-2C1C-41E6-B3A1-7DB821DD1766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3803D15-2C1C-41E6-B3A1-7DB821DD1766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3803D15-2C1C-41E6-B3A1-7DB821DD1766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B2DDDC8-CED3-43C8-A71E-BC0FD2B97130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B2DDDC8-CED3-43C8-A71E-BC0FD2B97130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B2DDDC8-CED3-43C8-A71E-BC0FD2B97130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B2DDDC8-CED3-43C8-A71E-BC0FD2B97130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1EBDCB-CC49-4F9F-9AAD-C637C8F5DA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1EBDCB-CC49-4F9F-9AAD-C637C8F5DA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1EBDCB-CC49-4F9F-9AAD-C637C8F5DA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1EBDCB-CC49-4F9F-9AAD-C637C8F5DA59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60CA901B-104F-4A61-8B61-E6B85A23362E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60CA901B-104F-4A61-8B61-E6B85A23362E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60CA901B-104F-4A61-8B61-E6B85A23362E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60CA901B-104F-4A61-8B61-E6B85A23362E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87A93A4E-A780-4FEB-AAF3-B0572D8EA662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A93A4E-A780-4FEB-AAF3-B0572D8EA662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A93A4E-A780-4FEB-AAF3-B0572D8EA662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87A93A4E-A780-4FEB-AAF3-B0572D8EA662}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B1949F8-F551-411B-9448-FC3288CDDD35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B1949F8-F551-411B-9448-FC3288CDDD35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B1949F8-F551-411B-9448-FC3288CDDD35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B1949F8-F551-411B-9448-FC3288CDDD35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{105D45CD-F9E9-48D0-81C3-5E12FBFF8417} = {35E5DD2A-82A9-45A6-A2C2-E78E06A4BFA5}
+		{2D9FA36E-3F1C-4493-BF26-8D5997532209} = {35E5DD2A-82A9-45A6-A2C2-E78E06A4BFA5}
+		{6B2DDDC8-CED3-43C8-A71E-BC0FD2B97130} = {35E5DD2A-82A9-45A6-A2C2-E78E06A4BFA5}
+		{EE1EBDCB-CC49-4F9F-9AAD-C637C8F5DA59} = {35E5DD2A-82A9-45A6-A2C2-E78E06A4BFA5}
+		{60CA901B-104F-4A61-8B61-E6B85A23362E} = {5E0320F3-6B26-4EB6-B270-4EC0E0E24AF3}
+		{87A93A4E-A780-4FEB-AAF3-B0572D8EA662} = {5E0320F3-6B26-4EB6-B270-4EC0E0E24AF3}
+		{2B1949F8-F551-411B-9448-FC3288CDDD35} = {5E0320F3-6B26-4EB6-B270-4EC0E0E24AF3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F30367D2-792F-43D4-A77F-BF0C0461F363}
