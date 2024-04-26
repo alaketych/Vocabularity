@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace GroundScope.Core.MessageBus.DataProvider.Interfaces.Broadcast;
+namespace Vocabularity.Core.MessageBus.DataProvider.Interfaces.Broadcast;
 
 public interface IBroadcastSenderDataProvider : IDisposable
 {

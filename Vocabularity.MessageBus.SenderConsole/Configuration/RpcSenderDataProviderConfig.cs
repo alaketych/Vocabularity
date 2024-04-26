@@ -1,6 +1,6 @@
 ﻿using Vocabularity.Core.MessageBus.DataProvider.Interfaces.Configuration.Rpc;
 
-namespace GroundScope.MessageBus.SenderConsole.Configuration;
+namespace Vocabularity.MessageBus.SenderConsole.Configuration;
 
 internal class RpcSenderDataProviderConfig : IRpcSenderDataProviderConfig
 {

@@ -1,6 +1,6 @@
 ﻿using Vocabularity.Core.MessageBus.DataProvider.Interfaces.Configuration.Message;
 
-namespace GroundScope.MessageBus.SenderConsole.Configuration;
+namespace Vocabularity.MessageBus.SenderConsole.Configuration;
 
 internal class MessageSenderDataProviderConfig : IMessageSenderDataProviderConfig
 {
