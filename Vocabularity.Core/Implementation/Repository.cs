@@ -1,10 +1,13 @@
 ﻿using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Options;
+using Vocabularity.Core.Configuration;
 using Vocabularity.Core.Interfaces;
 
 namespace Vocabularity.Core.Implementation;
 
 public abstract class Repository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : Entity
 {
+    private readonly AppSettings _options;
 
     private readonly Container _container;
 
@@ -14,8 +17,11 @@ public abstract class Repository<TEntity> : IRepository<TEntity>, IDisposable wh
 
     public abstract string ContainerId { get; }
 
-    public Repository(CosmosClient cosmosClient)
+    public Repository(
+        IOptions<AppSettings> options,
+        CosmosClient cosmosClient)
     {
+        _options = options.Value;
         _cosmosClient = cosmosClient;
         _container = _cosmosClient.GetContainer(DatabaseId, ContainerId);
     }

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vocabularity.Service.Langua
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vocabularity.Service.Dictionary", "Vocabularity.Service.Dictionary\Vocabularity.Service.Dictionary.csproj", "{5B27DD80-EAA4-4778-9AC2-91C18F0DF24E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vocabularity.Service.User", "ConsoleApp1\Vocabularity.Service.User.csproj", "{246B9772-F8EC-48C5-946E-B3B3E39C10AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{5B27DD80-EAA4-4778-9AC2-91C18F0DF24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B27DD80-EAA4-4778-9AC2-91C18F0DF24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B27DD80-EAA4-4778-9AC2-91C18F0DF24E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{246B9772-F8EC-48C5-946E-B3B3E39C10AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{246B9772-F8EC-48C5-946E-B3B3E39C10AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{246B9772-F8EC-48C5-946E-B3B3E39C10AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{246B9772-F8EC-48C5-946E-B3B3E39C10AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +48,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{62C86BD3-CE50-4B37-A3EC-A2BCB43C06F2} = {357A05BD-E944-4647-9D99-54EAE21CB973}
 		{5B27DD80-EAA4-4778-9AC2-91C18F0DF24E} = {357A05BD-E944-4647-9D99-54EAE21CB973}
+		{246B9772-F8EC-48C5-946E-B3B3E39C10AB} = {357A05BD-E944-4647-9D99-54EAE21CB973}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F30367D2-792F-43D4-A77F-BF0C0461F363}
