@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.Cosmos;
-using Vocabularity.Core;
+using Microsoft.Extensions.Options;
+using Vocabularity.Core.Configuration;
 using Vocabularity.Core.Implementation;
 using Vocabularity.Service.Dictionary.Interfaces;
 
@@ -7,15 +8,20 @@ namespace Vocabularity.Service.Dictionary.Implementation;
 
 public class DictionaryRepository : Repository<Entities.Dictionary>, IDictionaryRepository
 {
+    private readonly AppSettings appSettings;
+
     public readonly CosmosClient cosmosClient;
     public readonly Container cosmosContainer;
 
-    public override string DatabaseId => throw new NotImplementedException();
+    public override string DatabaseId => appSettings.ConnectionStrings.DatabaseName;
 
-    public override string ContainerId => throw new NotImplementedException();
+    public override string ContainerId => appSettings.ConnectionStrings.DatabaseContainer;
 
-    public DictionaryRepository(CosmosClient cosmosClient) : base(cosmosClient)
+    public DictionaryRepository(
+        CosmosClient cosmosClient,
+        IOptions<AppSettings> appSettings) : base(appSettings, cosmosClient)
     {
+        this.appSettings = appSettings.Value;
         this.cosmosClient = cosmosClient;
         cosmosContainer = this.cosmosClient.GetContainer(DatabaseId, ContainerId);
     }

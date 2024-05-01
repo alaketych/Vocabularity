@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.Cosmos;
-using Vocabularity.Core;
+using Microsoft.Extensions.Options;
+using Vocabularity.Core.Configuration;
 using Vocabularity.Core.Implementation;
 using Vocabularity.Service.User.Interfaces;
 
@@ -7,6 +8,8 @@ namespace Vocabularity.Service.User.Implementation
 {
     public class UserRepository : Repository<Entities.User>, IUserRepository
     {
+        private readonly AppSettings appSettings;
+
         public readonly CosmosClient cosmosClient;
         public readonly Container cosmosContainer;
 
@@ -14,8 +17,11 @@ namespace Vocabularity.Service.User.Implementation
 
         public override string ContainerId => throw new NotImplementedException();
 
-        public UserRepository(CosmosClient cosmosClient) : base(cosmosClient)
+        public UserRepository(
+            IOptions<AppSettings> appSettings,
+            CosmosClient cosmosClient) : base(appSettings, cosmosClient)
         {
+            this.appSettings = appSettings.Value;
             this.cosmosClient = cosmosClient;
             cosmosContainer = this.cosmosClient.GetContainer(DatabaseId, ContainerId);
         }

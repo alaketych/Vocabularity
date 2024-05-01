@@ -1,5 +1,7 @@
 ﻿using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Options;
 using Vocabularity.Core;
+using Vocabularity.Core.Configuration;
 using Vocabularity.Core.Implementation;
 using Vocabularity.Service.Language.Interfaces;
 
@@ -7,15 +9,20 @@ namespace Vocabularity.Service.Language.Implementation;
 
 public class LanguageRepository : Repository<Entities.Language>, ILanguageRepository
 {
+    private readonly AppSettings appSettings;
+
     public readonly CosmosClient cosmosClient;
     public readonly Container cosmosContainer;
 
-    public override string DatabaseId => throw new NotImplementedException();
+    public override string DatabaseId => appSettings.ConnectionStrings.DatabaseName;
 
-    public override string ContainerId => throw new NotImplementedException();
+    public override string ContainerId => appSettings.ConnectionStrings.DatabaseContainer;
 
-    public LanguageRepository(CosmosClient cosmosClient) : base(cosmosClient)
+    public LanguageRepository(
+        IOptions<AppSettings> appSettings,
+        CosmosClient cosmosClient) : base(appSettings, cosmosClient)
     {
+        this.appSettings = appSettings.Value;
         this.cosmosClient = cosmosClient;
         cosmosContainer = this.cosmosClient.GetContainer(DatabaseId, ContainerId);
     }
