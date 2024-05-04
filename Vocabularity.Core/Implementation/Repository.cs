@@ -7,7 +7,7 @@ namespace Vocabularity.Core.Implementation;
 
 public abstract class Repository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : Entity
 {
-    private readonly AppSettings _options;
+    private readonly CosmosConfig _appSettings;
 
     private readonly Container _container;
 
@@ -18,12 +18,12 @@ public abstract class Repository<TEntity> : IRepository<TEntity>, IDisposable wh
     public abstract string ContainerId { get; }
 
     public Repository(
-        IOptions<AppSettings> options,
+        IOptions<CosmosConfig> appSettings,
         CosmosClient cosmosClient)
     {
-        _options = options.Value;
+        _appSettings = appSettings.Value;
         _cosmosClient = cosmosClient;
-        _container = _cosmosClient.GetContainer(DatabaseId, ContainerId);
+        _container = _cosmosClient.GetContainer(_appSettings.DatabaseId, _appSettings.DatabaseContainer);
     }
 
     public async IAsyncEnumerable<TEntity> GetAllAsync()
@@ -66,7 +66,7 @@ public abstract class Repository<TEntity> : IRepository<TEntity>, IDisposable wh
         return null;
     }
 
-    public async Task AddAsync(TEntity entity, string partitionKey)
+    public async Task CreateAsync(TEntity entity, string partitionKey)
     {
         var itemResponse = await _container.CreateItemAsync<TEntity>(entity, new PartitionKey(partitionKey));
         entity.Id = itemResponse.ActivityId;

@@ -8,18 +8,18 @@ namespace Vocabularity.Service.Dictionary.Implementation;
 
 public class DictionaryRepository : Repository<Entities.Dictionary>, IDictionaryRepository
 {
-    private readonly AppSettings appSettings;
+    private readonly CosmosConfig appSettings;
 
     public readonly CosmosClient cosmosClient;
     public readonly Container cosmosContainer;
 
-    public override string DatabaseId => appSettings.ConnectionStrings.DatabaseName;
+    public override string DatabaseId => appSettings.DatabaseId;
 
-    public override string ContainerId => appSettings.ConnectionStrings.DatabaseContainer;
+    public override string ContainerId => appSettings.DatabaseContainer;
 
     public DictionaryRepository(
         CosmosClient cosmosClient,
-        IOptions<AppSettings> appSettings) : base(appSettings, cosmosClient)
+        IOptions<CosmosConfig> appSettings) : base(appSettings, cosmosClient)
     {
         this.appSettings = appSettings.Value;
         this.cosmosClient = cosmosClient;

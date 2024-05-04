@@ -8,7 +8,7 @@ namespace Vocabularity.Service.User.Implementation
 {
     public class UserRepository : Repository<Entities.User>, IUserRepository
     {
-        private readonly AppSettings appSettings;
+        private readonly CosmosConfig appSettings;
 
         public readonly CosmosClient cosmosClient;
         public readonly Container cosmosContainer;
@@ -18,7 +18,7 @@ namespace Vocabularity.Service.User.Implementation
         public override string ContainerId => throw new NotImplementedException();
 
         public UserRepository(
-            IOptions<AppSettings> appSettings,
+            IOptions<CosmosConfig> appSettings,
             CosmosClient cosmosClient) : base(appSettings, cosmosClient)
         {
             this.appSettings = appSettings.Value;

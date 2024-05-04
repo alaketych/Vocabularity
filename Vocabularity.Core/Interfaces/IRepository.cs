@@ -11,7 +11,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : Entity
 
     Task<TEntity> GetByIdAsync(string id, string partitionKey);
 
-    Task AddAsync(TEntity entity, string partitionKey);
+    Task CreateAsync(TEntity entity, string partitionKey);
 
     Task UpdateAsync(TEntity entity, string partitionKey);
 
