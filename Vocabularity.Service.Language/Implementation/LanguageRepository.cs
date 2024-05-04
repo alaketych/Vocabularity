@@ -9,17 +9,17 @@ namespace Vocabularity.Service.Language.Implementation;
 
 public class LanguageRepository : Repository<Entities.Language>, ILanguageRepository
 {
-    private readonly AppSettings appSettings;
+    private readonly CosmosConfig appSettings;
 
     public readonly CosmosClient cosmosClient;
     public readonly Container cosmosContainer;
 
-    public override string DatabaseId => appSettings.ConnectionStrings.DatabaseName;
+    public override string DatabaseId => appSettings.DatabaseId;
 
-    public override string ContainerId => appSettings.ConnectionStrings.DatabaseContainer;
+    public override string ContainerId => appSettings.DatabaseContainer;
 
     public LanguageRepository(
-        IOptions<AppSettings> appSettings,
+        IOptions<CosmosConfig> appSettings,
         CosmosClient cosmosClient) : base(appSettings, cosmosClient)
     {
         this.appSettings = appSettings.Value;
@@ -30,7 +30,8 @@ public class LanguageRepository : Repository<Entities.Language>, ILanguageReposi
     public async Task<IEnumerable<Entities.Language>> GetLanguagesByUser(string userId)
     {
         var result = new List<Entities.Language>();
-        var container = cosmosContainer.GetItemQueryIterator<Entities.Language>(new QueryDefinition("SELECT * FROM c"));
+        var container = cosmosContainer.GetItemQueryIterator<Entities.Language>(
+            new QueryDefinition($"SELECT * FROM c WHERE c.User = '{userId}'"));
 
         while (container.HasMoreResults)
         {
