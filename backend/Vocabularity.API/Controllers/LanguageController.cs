@@ -1,7 +1,6 @@
-﻿using Microsoft.Azure.Cosmos;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Vocabularity.Core.Entities;
 using Vocabularity.Service.Language.Interfaces;
-using Vocabularity.Service.Language.Entities;
 
 namespace Vocabularity.API.Controllers;
 
@@ -15,10 +14,15 @@ public class LanguageController : ControllerBase
         this.languageRepository = languageRepository;
     }
 
-    [HttpGet("language/{id}/{partitionKey}")]
-    public async Task<IActionResult> GetLanguage(string id, string partitionKey)
+    [HttpGet("language/{id}")]
+    public async Task<IActionResult> GetLanguage(string id)
     {
-        var language = await languageRepository.GetByIdAsync(id, new PartitionKey(partitionKey).ToString());
+        var language = await languageRepository.GetByIdAsync(id);
+        if (language is null)
+        {
+            return NotFound();
+        }
+
         return Ok(language);
     }
 
@@ -37,21 +41,21 @@ public class LanguageController : ControllerBase
     [HttpPost("language")]
     public async Task<IActionResult> CreateLanguage(Language language)
     {
-        await languageRepository.CreateAsync(language, "/language");
-        return Ok();
+        await languageRepository.CreateAsync(language);
+        return Ok(language);
     }
 
     [HttpPut("language")]
     public async Task<IActionResult> UpdateLanguage(Language language)
     {
-        await languageRepository.UpdateAsync(language, new PartitionKey(language.Name).ToString());
+        await languageRepository.UpdateAsync(language);
         return Ok();
     }
 
-    [HttpDelete("{id}/{partitionKey}")]
-    public async Task<IActionResult> DeleteAsync(string id, string partitionKey)
-    { 
-        await languageRepository.DeleteAsync(id, new PartitionKey(partitionKey).ToString());
+    [HttpDelete("language/{id}")]
+    public async Task<IActionResult> DeleteLanguage(string id)
+    {
+        await languageRepository.DeleteAsync(id);
         return Ok();
     }
 }

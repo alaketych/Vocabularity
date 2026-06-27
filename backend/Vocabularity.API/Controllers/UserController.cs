@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Vocabularity.Core.Entities;
 using Vocabularity.Service.User.Interfaces;
-using Vocabularity.Service.User.Entities;
-using Vocabularity.Service.Language.Implementation;
-using Microsoft.Azure.Cosmos;
-using Vocabularity.Service.Language.Entities;
-using Vocabularity.Service.Language.Interfaces;
-using Vocabularity.Service.User.Implementation;
 
 namespace Vocabularity.API.Controllers;
 
@@ -20,9 +15,9 @@ public class UserController : Controller
     }
 
     [HttpGet("users")]
-    public async Task<List<Service.User.Entities.User>> GetUsers()
-    { 
-        var result = new List<Service.User.Entities.User>();
+    public async Task<List<User>> GetUsers()
+    {
+        var result = new List<User>();
         await foreach (var item in userRepository.GetAllAsync())
         {
             result.Add(item);
@@ -31,31 +26,36 @@ public class UserController : Controller
         return result;
     }
 
-    [HttpGet("{id}/{partitionKey}")]
-    public async Task<IActionResult> GetUser(string id, string partitionKey)
+    [HttpGet("user/{id}")]
+    public async Task<IActionResult> GetUser(string id)
     {
-        var language = await userRepository.GetByIdAsync(id, new PartitionKey(partitionKey).ToString());
-        return Ok(language);
+        var user = await userRepository.GetByIdAsync(id);
+        if (user is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(user);
     }
 
     [HttpPost("user")]
-    public async Task<IActionResult> CreateLanguage(Service.User.Entities.User user)
+    public async Task<IActionResult> CreateUser(User user)
     {
-        await userRepository.CreateAsync(user, new PartitionKey(user.Pseudonym).ToString());
-        return Ok();
+        await userRepository.CreateAsync(user);
+        return Ok(user);
     }
 
     [HttpPut("user")]
-    public async Task<IActionResult> UpdateLanguage(Service.User.Entities.User user)
+    public async Task<IActionResult> UpdateUser(User user)
     {
-        await userRepository.UpdateAsync(user, new PartitionKey(user.Pseudonym).ToString());
+        await userRepository.UpdateAsync(user);
         return Ok();
     }
 
-    [HttpDelete("{id}/{partitionKey}")]
-    public async Task<IActionResult> DeleteAsync(string id, string partitionKey)
+    [HttpDelete("user/{id}")]
+    public async Task<IActionResult> DeleteUser(string id)
     {
-        await userRepository.DeleteAsync(id, new PartitionKey(partitionKey).ToString());
+        await userRepository.DeleteAsync(id);
         return Ok();
     }
 }

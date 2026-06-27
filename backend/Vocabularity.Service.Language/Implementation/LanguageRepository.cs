@@ -1,46 +1,19 @@
-﻿using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Options;
-using Vocabularity.Core;
-using Vocabularity.Core.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Vocabularity.Core.Data;
 using Vocabularity.Core.Implementation;
 using Vocabularity.Service.Language.Interfaces;
+using LanguageEntity = Vocabularity.Core.Entities.Language;
 
 namespace Vocabularity.Service.Language.Implementation;
 
-public class LanguageRepository : Repository<Entities.Language>, ILanguageRepository
+public class LanguageRepository : Repository<LanguageEntity>, ILanguageRepository
 {
-    private readonly CosmosConfig appSettings;
-
-    public readonly CosmosClient cosmosClient;
-    public readonly Container cosmosContainer;
-
-    public override string DatabaseId => appSettings.DatabaseId;
-
-    public override string ContainerId => appSettings.DatabaseContainer;
-
-    public LanguageRepository(
-        IOptions<CosmosConfig> appSettings,
-        CosmosClient cosmosClient) : base(appSettings, cosmosClient)
+    public LanguageRepository(VocabularityDbContext context) : base(context)
     {
-        this.appSettings = appSettings.Value;
-        this.cosmosClient = cosmosClient;
-        cosmosContainer = this.cosmosClient.GetContainer(DatabaseId, ContainerId);
     }
 
-    public async Task<IEnumerable<Entities.Language>> GetLanguagesByUser(string userId)
+    public async Task<IEnumerable<LanguageEntity>> GetLanguagesByUser(string userId)
     {
-        var result = new List<Entities.Language>();
-        var container = cosmosContainer.GetItemQueryIterator<Entities.Language>(
-            new QueryDefinition($"SELECT * FROM c WHERE c.User = '{userId}'"));
-
-        while (container.HasMoreResults)
-        {
-            foreach (var item in await container.ReadNextAsync())
-            {
-                result.Add(item);
-            }
-        }
-
-        return result;
+        return await DbSet.ToListAsync();
     }
 }

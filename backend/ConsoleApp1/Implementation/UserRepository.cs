@@ -1,29 +1,13 @@
-﻿using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Options;
-using Vocabularity.Core.Configuration;
+﻿using Vocabularity.Core.Data;
 using Vocabularity.Core.Implementation;
 using Vocabularity.Service.User.Interfaces;
+using UserEntity = Vocabularity.Core.Entities.User;
 
-namespace Vocabularity.Service.User.Implementation
+namespace Vocabularity.Service.User.Implementation;
+
+public class UserRepository : Repository<UserEntity>, IUserRepository
 {
-    public class UserRepository : Repository<Entities.User>, IUserRepository
+    public UserRepository(VocabularityDbContext context) : base(context)
     {
-        private readonly CosmosConfig appSettings;
-
-        public readonly CosmosClient cosmosClient;
-        public readonly Container cosmosContainer;
-
-        public override string DatabaseId => appSettings.DatabaseId;
-
-        public override string ContainerId => appSettings.DatabaseContainer;
-
-        public UserRepository(
-            IOptions<CosmosConfig> appSettings,
-            CosmosClient cosmosClient) : base(appSettings, cosmosClient)
-        {
-            this.appSettings = appSettings.Value;
-            this.cosmosClient = cosmosClient;
-            cosmosContainer = this.cosmosClient.GetContainer(DatabaseId, ContainerId);
-        }
     }
 }
