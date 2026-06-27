@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Vocabularity.Core.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Vocabularity.Core.Data;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((hostingContext, config) =>
@@ -10,7 +11,10 @@ var host = Host.CreateDefaultBuilder(args)
     })
     .ConfigureServices((hostContext, services) =>
     {
-        services.Configure<CosmosConfig>(hostContext.Configuration.GetSection("CosmosConfig"));
+        services.AddDbContext<VocabularityDbContext>(options =>
+            options.UseSqlServer(
+                hostContext.Configuration.GetConnectionString("DefaultConnection"),
+                sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 5)));
     })
     .Build();
 

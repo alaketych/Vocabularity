@@ -1,89 +1,53 @@
-﻿using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Options;
-using Vocabularity.Core.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Vocabularity.Core.Data;
 using Vocabularity.Core.Interfaces;
 
 namespace Vocabularity.Core.Implementation;
 
-public abstract class Repository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : Entity
+public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 {
-    private readonly CosmosConfig _appSettings;
+    protected readonly VocabularityDbContext Context;
 
-    private readonly Container _container;
+    protected readonly DbSet<TEntity> DbSet;
 
-    private readonly CosmosClient _cosmosClient;
-
-    public abstract string DatabaseId { get; }
-
-    public abstract string ContainerId { get; }
-
-    public Repository(
-        IOptions<CosmosConfig> appSettings,
-        CosmosClient cosmosClient)
+    protected Repository(VocabularityDbContext context)
     {
-        _appSettings = appSettings.Value;
-        _cosmosClient = cosmosClient;
-        _container = _cosmosClient.GetContainer(_appSettings.DatabaseId, _appSettings.DatabaseContainer);
+        Context = context;
+        DbSet = context.Set<TEntity>();
     }
 
     public async IAsyncEnumerable<TEntity> GetAllAsync()
     {
-        var result = _container.GetItemQueryIterator<TEntity>(new QueryDefinition("SELECT * FROM c"));
-        while (result.HasMoreResults)
+        foreach (var item in await DbSet.ToListAsync())
         {
-            foreach (var item in await result.ReadNextAsync())
-            {
-                yield return item;
-            }
+            yield return item;
         }
     }
 
-    public async IAsyncEnumerable<TEntity> GetAllAsync(string partitionKey)
+    public async Task<TEntity?> GetByIdAsync(string id)
     {
-        var result = _container.GetItemQueryIterator<TEntity>(new QueryDefinition("SELECT * FROM c"), null,
-            new QueryRequestOptions 
-            { 
-                PartitionKey = new PartitionKey(partitionKey) 
-            });
+        return await DbSet.FindAsync(id);
+    }
 
-        while (result.HasMoreResults)
+    public async Task CreateAsync(TEntity entity)
+    {
+        await DbSet.AddAsync(entity);
+        await Context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(TEntity entity)
+    {
+        DbSet.Update(entity);
+        await Context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(string id)
+    {
+        var entity = await GetByIdAsync(id);
+        if (entity is not null)
         {
-            foreach (var item in await result.ReadNextAsync())
-            {
-                yield return item;
-            }
+            DbSet.Remove(entity);
+            await Context.SaveChangesAsync();
         }
-    }
-
-    public async Task<TEntity> GetByIdAsync(string id, string partitionKey)
-    {
-        var itemResponse = await _container.ReadItemAsync<TEntity>(id, new PartitionKey(partitionKey));
-        if (itemResponse != null)
-        {
-            return itemResponse;
-        }
-
-        return null;
-    }
-
-    public async Task CreateAsync(TEntity entity, string partitionKey)
-    {
-        var itemResponse = await _container.CreateItemAsync<TEntity>(entity, new PartitionKey(partitionKey));
-        entity.Id = itemResponse.ActivityId;
-    }
-
-    public async Task UpdateAsync(TEntity entity, string partitionKey)
-    {
-        await _container.ReplaceItemAsync<TEntity>(entity, entity.Id, new PartitionKey(partitionKey));
-    }
-
-    public async Task DeleteAsync(string id, string partitionKey)
-    {
-        await _container.DeleteItemAsync<TEntity>(id, new PartitionKey(partitionKey));
-    }
-
-    public void Dispose()
-    {
-        _cosmosClient?.Dispose();
     }
 }

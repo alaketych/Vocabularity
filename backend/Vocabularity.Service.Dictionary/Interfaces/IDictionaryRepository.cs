@@ -1,8 +1,9 @@
 ﻿using Vocabularity.Core.Interfaces;
+using Vocabularity.Core.Entities;
 
 namespace Vocabularity.Service.Dictionary.Interfaces;
 
-public interface IDictionaryRepository : IRepository<Entities.Dictionary>
+public interface IDictionaryRepository : IRepository<DictionaryEntry>
 {
-    Task<IEnumerable<Entities.Dictionary>> GetDictionaryByLanguage(string languageId);
+    Task<IEnumerable<DictionaryEntry>> GetDictionaryByLanguage(string languageId);
 }

@@ -1,19 +1,16 @@
-﻿namespace Vocabularity.Core.Interfaces;
+﻿using Vocabularity.Core.Entities;
 
-public interface IRepository<TEntity> : IDisposable where TEntity : Entity
+namespace Vocabularity.Core.Interfaces;
+
+public interface IRepository<TEntity> where TEntity : Entity
 {
-    string DatabaseId { get; }
-    string ContainerId { get; }
-
     IAsyncEnumerable<TEntity> GetAllAsync();
 
-    IAsyncEnumerable<TEntity> GetAllAsync(string partitionKey);
+    Task<TEntity?> GetByIdAsync(string id);
 
-    Task<TEntity> GetByIdAsync(string id, string partitionKey);
+    Task CreateAsync(TEntity entity);
 
-    Task CreateAsync(TEntity entity, string partitionKey);
+    Task UpdateAsync(TEntity entity);
 
-    Task UpdateAsync(TEntity entity, string partitionKey);
-
-    Task DeleteAsync(string id, string partitionKey);
+    Task DeleteAsync(string id);
 }

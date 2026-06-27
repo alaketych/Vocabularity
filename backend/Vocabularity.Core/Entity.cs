@@ -1,13 +1,9 @@
-﻿using Newtonsoft.Json;
-
-namespace Vocabularity.Core;
+﻿namespace Vocabularity.Core;
 
 public class Entity
 {
-    [JsonProperty("id")]
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
-    [JsonProperty("ttl")]
     public int Ttl { get; set; }
 
     public Entity(bool generateId = true)
@@ -16,7 +12,7 @@ public class Entity
 
         if (generateId)
         {
-            this.Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString();
         }
     }
 
