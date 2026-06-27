@@ -12,7 +12,9 @@ var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
         services.AddDbContext<VocabularityDbContext>(options =>
-            options.UseSqlServer(hostContext.Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(
+                hostContext.Configuration.GetConnectionString("DefaultConnection"),
+                sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 5)));
     })
     .Build();
 
